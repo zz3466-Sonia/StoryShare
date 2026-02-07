@@ -81,6 +81,24 @@ export default function App() {
     }
   };
 
+  const validateRoomCode = async () => {
+    if (!roomCode.trim()) {
+      setError('Please enter a room code');
+      return false;
+    }
+    setLoading(true);
+    try {
+      await apiRequest(`/api/party/${roomCode.trim()}`);
+      setError('');
+      return true;
+    } catch {
+      setError('Party not found');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const joinParty = async () => {
     if (!roomCode.trim() || !username.trim()) {
       setError('Please enter room code and name');
@@ -221,6 +239,7 @@ export default function App() {
         placeholder="Your Name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        autoFocus
       />
 
       <button className="btn-primary" onClick={() => {
@@ -263,13 +282,21 @@ export default function App() {
       <h1 className="logo" style={{fontSize: '1.5rem'}}>CROWDSTORY</h1>
       <div style={{marginTop: '3rem'}}>
         <h3>ENTER CODE</h3>
+        {error && <p style={{ color: '#c0392b' }}>{error}</p>}
         <input
           type="text"
           placeholder="ex. DEVFEST2026"
           value={roomCode}
           onChange={(e) => setRoomCode(e.target.value)}
+          autoFocus
         />
-        <button className="btn-primary" onClick={() => setView('enterName')}>CONTINUE</button>
+        <button className="btn-primary" onClick={async () => {
+          if (await validateRoomCode()) {
+            setView('enterName');
+          }
+        }} disabled={loading}>
+          {loading ? 'VALIDATING...' : 'CONTINUE'}
+        </button>
       </div>
     </div>
   );
@@ -280,11 +307,13 @@ export default function App() {
       <h1 className="logo" style={{fontSize: '1.5rem'}}>CROWDSTORY</h1>
       <div style={{marginTop: '3rem'}}>
         <h3>ENTER USERNAME</h3>
+        {error && <p style={{ color: '#c0392b' }}>{error}</p>}
         <input
           type="text"
           placeholder="Your Name"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoFocus
         />
         <button className="btn-primary" onClick={joinParty} disabled={loading}>
           {loading ? 'JOINING...' : 'JOIN'}
