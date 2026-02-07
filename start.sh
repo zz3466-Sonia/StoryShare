@@ -11,6 +11,12 @@ if [ ! -f "server.js" ] || [ ! -d "frontend" ]; then
   exit 1
 fi
 
+# Auto-cleanup old processes
+echo "🧹 Cleaning up old processes..."
+pkill -f "node server.js" 2>/dev/null
+pkill -f "vite" 2>/dev/null
+sleep 1
+
 # Get local IP address
 LOCAL_IP=$(ipconfig getifaddr en0 2>/dev/null || echo "localhost")
 
