@@ -20,7 +20,7 @@ sleep 2
 echo ""
 echo "Starting frontend web server..."
 cd frontend
-npx vite --port 5173
+npx vite --host 0.0.0.0 --port 5173
 
 # Cleanup on Ctrl+C
 trap "kill $BACKEND_PID" EXIT

@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 
 // Import modules
 const partyStore = require('./state/partyStore');
@@ -186,17 +185,10 @@ app.get('/api/debug/parties', (req, res) => {
   res.json({ parties: partyStore.getAllParties() });
 });
 
-// Serve static frontend files in production
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
-
-// SPA fallback - serve index.html for all non-API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
-});
-
-// Start server
-app.listen(PORT, () => {
+// Start server (bind to all interfaces for LAN access)
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🌐 LAN access enabled on port ${PORT}`);
   console.log(`📡 Party system ready!`);
   console.log(`🎨 Story engine: ${storyEngine.hasApiKey ? 'Gemini API' : 'Fallback mode'}`);
 });
