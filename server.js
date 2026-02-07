@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 // Import modules
 const partyStore = require('./state/partyStore');
@@ -183,6 +184,14 @@ app.get('/api/health', (req, res) => {
 // Get all active parties (for debugging)
 app.get('/api/debug/parties', (req, res) => {
   res.json({ parties: partyStore.getAllParties() });
+});
+
+// Serve static frontend files in production
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 
 // Start server

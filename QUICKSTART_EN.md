@@ -5,50 +5,45 @@
 
 ---
 
-## 🚀 Installation (One-Time Setup)
+## 🚀 Installation & Setup
 
-### Step 1: Install Dependencies
-Open **one** terminal and run:
+### Step 1: Navigate to Project Directory
 ```bash
-cd /Users/siqijiang/aigame
+cd Crowd-Control-Stories
+```
+
+### Step 2: Install Dependencies (First Time Only)
+```bash
 npm install
 cd frontend && npm install && cd ..
 ```
 
+### Step 3: Configure API Key (First Time Only)
+Create a `.env` file in the project root:
+```
+GEMINI_API_KEY=your_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```
+
 ---
 
-## 💻 How to Run (Do This Every Time)
+## 💻 How to Run (Do This Every Time You Play)
 
-### Option A: One-Click Launch (Recommended)
+### Option A: One-Click Launch (Recommended) ⭐
 ```bash
 ./start.sh
 ```
 
-Then open in your browser: **http://localhost:5173**
-
-### Option B: Manual Two Terminals (Traditional)
-**Terminal 1 - Start Backend Server:**
+### Option B: Manual Two Terminals
+**Terminal 1 - Start Backend:**
 ```bash
-cd /Users/siqijiang/aigame
 node server.js
 ```
 
-You'll see this message on success:
-```
-🚀 Server running on http://localhost:3000
-📡 Party system ready!
-🎨 Story engine: Gemini API
-```
-
-**Terminal 2 - Start Frontend Web Server:**
+**Terminal 2 - Start Frontend:**
 ```bash
-cd /Users/siqijiang/aigame/frontend
+cd frontend
 npx vite --port 5173
-```
-
-You'll see this message on success:
-```
-  ➜  Local:   http://localhost:5173/
 ```
 
 ---

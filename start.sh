@@ -4,9 +4,12 @@ echo "🎮 CROWDSTORY - Startup Script"
 echo "=============================="
 echo ""
 
-# Navigate to the directory where this script is located
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR"
+# Check if we're in the project root
+if [ ! -f "server.js" ] || [ ! -d "frontend" ]; then
+  echo "❌ Error: This script must be run from the project root directory"
+  echo "Please run: cd /path/to/Crowd-Control-Stories && ./start.sh"
+  exit 1
+fi
 
 echo "Starting backend server..."
 node server.js &

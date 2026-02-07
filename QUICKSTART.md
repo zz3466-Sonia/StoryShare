@@ -5,64 +5,47 @@
 
 ---
 
-## 🚀 安装和启动（只需一次）
+## 🚀 安装和启动（第一次只需一次，后面每次玩都要做）
 
-### 第1步：安装依赖
-打开**一个**终端，运行：
+### 第1步：进入项目目录
 ```bash
-cd /Users/siqijiang/aigame
+cd Crowd-Control-Stories
+```
+
+### 第2步：安装依赖（第一次必须做）
+```bash
 npm install
 cd frontend && npm install && cd ..
 ```
 
----
-
-## 💻 如何运行（每次玩都要做）
-
-### 选项A：一键启动（推荐）
-创建一个 shell 脚本文件 `start.sh`：
-```bash
-#!/bin/bash
-# 启动后端
-cd /Users/siqijiang/aigame
-node server.js &
-BACKEND_PID=$!
-
-# 启动前端
-cd /Users/siqijiang/aigame/frontend
-npx vite --port 5173
-
-# 清理
-kill $BACKEND_PID
+### 第3步：配置 API 密钥（第一次必须做）
+创建 `.env` 文件（项目根目录）：
+```
+GEMINI_API_KEY=你的API密钥
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
-使用方式：
+---
+
+## 💻 如何运行游戏（每次玩都要做）
+
+### 方式A：一键启动（推荐）⭐
 ```bash
-chmod +x start.sh
 ./start.sh
 ```
 
-### 选项B：手动两个终端（传统方式）
-**终端1 - 启动后端服务器：**
+**重要：** 要在项目根目录运行（能看到 `server.js` 和 `frontend/` 文件夹的地方）
+
+### 方式B：手动两个终端
+**终端1 - 启动后端：**
 ```bash
-cd /Users/siqijiang/aigame
 node server.js
 ```
-看到这条消息说明成功：
-```
-🚀 Server running on http://localhost:3000
-📡 Party system ready!
-🎨 Story engine: Gemini API
-```
 
-**终端2 - 启动前端网页：**
+**终端2 - 启动前端：**
 ```bash
-cd /Users/siqijiang/aigame/frontend
+cd frontend
 npx vite --port 5173
-```
-看到这条消息说明成功：
-```
-  ➜  Local:   http://localhost:5173/
 ```
 
 ---
@@ -192,4 +175,3 @@ ngrok http 3000
 - **API 失败？** → 正常，会自动用本地故事
 - **玩家进不来？** → 检查房间码、确保他们在同一网络
 
-祝你 Hackathon 演示成功！🚀
