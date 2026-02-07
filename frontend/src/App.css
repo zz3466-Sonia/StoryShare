@@ -52,13 +52,16 @@ input {
   padding: 15px;
   border-radius: 12px;
   width: 80%;
-  font-size: 1.1rem;
+  font-size: 16px; /* Use 16px to prevent zoom on iOS */
   margin-bottom: 1rem;
   text-align: center;
   font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   color: #555;
   outline: none;
+  -webkit-appearance: none; /* Remove iOS default styling */
+  appearance: none;
+  letter-spacing: 0.5px; /* Smooth character spacing */
 }
 
 /* Buttons */

@@ -221,6 +221,9 @@ export default function App() {
         placeholder="Your Name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        autoCapitalize="off"
+        autoCorrect="off"
+        spellCheck="false"
       />
 
       <button className="btn-primary" onClick={() => {
@@ -268,6 +271,9 @@ export default function App() {
           placeholder="ex. DEVFEST2026"
           value={roomCode}
           onChange={(e) => setRoomCode(e.target.value)}
+          autoCapitalize="characters"
+          autoCorrect="off"
+          spellCheck="false"
         />
         <button className="btn-primary" onClick={() => setView('enterName')}>CONTINUE</button>
       </div>
@@ -285,6 +291,9 @@ export default function App() {
           placeholder="Your Name"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck="false"
         />
         <button className="btn-primary" onClick={joinParty} disabled={loading}>
           {loading ? 'JOINING...' : 'JOIN'}
