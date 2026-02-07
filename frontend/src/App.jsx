@@ -239,6 +239,7 @@ export default function App() {
         placeholder="Your Name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        autoFocus
       />
 
       <button className="btn-primary" onClick={() => {
@@ -287,6 +288,7 @@ export default function App() {
           placeholder="ex. DEVFEST2026"
           value={roomCode}
           onChange={(e) => setRoomCode(e.target.value)}
+          autoFocus
         />
         <button className="btn-primary" onClick={async () => {
           if (await validateRoomCode()) {
@@ -311,6 +313,7 @@ export default function App() {
           placeholder="Your Name"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoFocus
         />
         <button className="btn-primary" onClick={joinParty} disabled={loading}>
           {loading ? 'JOINING...' : 'JOIN'}
