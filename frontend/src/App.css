@@ -17,6 +17,7 @@ body {
   width: 100%;
   max-width: 420px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* The White Card Container */
@@ -27,7 +28,7 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   min-height: 520px;
   max-height: 90vh;
-  width: 100%;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +41,7 @@ body {
 .screen-card > * {
   width: 100%;
   max-width: 320px;
+  box-sizing: border-box;
 }
 
 .screen-card > .logo {
@@ -250,4 +252,10 @@ input::placeholder {
 
 .screen-card::-webkit-scrollbar-thumb:hover {
   background: #999;
+}
+/* Ensure theme selection grid maintains width */
+.screen-card > div {
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
 }

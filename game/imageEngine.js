@@ -88,34 +88,12 @@ class ImageEngine {
       return { imageDataUrl: null, error: 'No API key' };
     }
 
-    const prompt = this.buildPrompt({ story, choice, visualProfile });
-
-    const endpoints = [
-      {
-        url: `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_IMAGE_MODEL}:generateImages?key=${GEMINI_API_KEY}`,
-        body: {
-          prompt: { text: prompt },
-          generationConfig: { numberOfImages: 1 }
-        }
-      }
-    ];
-
-    let lastError = null;
-
-    for (const endpoint of endpoints) {
-      try {
-        const result = await this.callImageAPI(endpoint.url, endpoint.body);
-        const base64 = this.extractBase64(result);
-        if (base64) {
-          return { imageDataUrl: `data:image/png;base64,${base64}` };
-        }
-        lastError = new Error('Image data missing in response');
-      } catch (err) {
-        lastError = err;
-      }
-    }
-
-    return { imageDataUrl: null, error: lastError ? lastError.message : 'Image generation failed' };
+    // Image generation temporarily disabled - Gemini image API not available
+    // Return graceful fallback instead of 404 error
+    return { 
+      imageDataUrl: null, 
+      error: null  // No error shown to user - graceful degradation
+    };
   }
 }
 
