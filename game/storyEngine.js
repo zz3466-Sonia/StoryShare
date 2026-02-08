@@ -5,6 +5,7 @@ const Dedalus = require('dedalus-labs').default;
 // Configuration
 const DEDALUS_API_KEY = process.env.DEDALUS_API_KEY;
 const DEDALUS_MODEL = process.env.DEDALUS_MODEL || 'anthropic/claude-sonnet-4-20250514';
+const STORY_WORD_LIMIT = Number.parseInt(process.env.STORY_WORD_LIMIT, 10) || 30;
 const DEDALUS_MODEL_FALLBACKS = [
   DEDALUS_MODEL,
   'anthropic/claude-opus-4-6',
@@ -129,7 +130,7 @@ class StoryEngine {
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 2-3 sentences (40-50 words total) continuing the story.",',
+      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
       '  "choices": [',
       '    "A) [Astronaut action]",',
       '    "B) [AI action]",',
@@ -139,7 +140,7 @@ class StoryEngine {
       '',
       'RULES:',
       '- English only',
-      '- 3-4 sentences MAX (40-50 words TOTAL)',
+      '- 2-3 sentences MAX (20-30 words TOTAL)',
       '- First sentence: briefly mention the choice',
       '- Then: continue the story',
       '- Choices <= 10 words',
@@ -161,7 +162,7 @@ class StoryEngine {
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 2-3 sentences (40-50 words total) continuing the story.",',
+      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
       '  "choices": [',
       '    "A) [Stay/open up]",',
       '    "B) [Leave/distance]",',
@@ -171,7 +172,7 @@ class StoryEngine {
       '',
       'RULES:',
       '- English only',
-      '- 3-4 sentences MAX (40-50 words TOTAL)',
+      '- 2-3 sentences MAX (20-30 words TOTAL)',
       '- First sentence: briefly mention the choice',
       '- Then: continue the story',
       '- Choices <= 10 words',
@@ -193,7 +194,7 @@ class StoryEngine {
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 2-3 sentences (40-50 words total) continuing the story.",',
+      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
       '  "choices": [',
       '    "A) [Investigate deeper]",',
       '    "B) [Trust intuition]",',
@@ -203,7 +204,7 @@ class StoryEngine {
       '',
       'RULES:',
       '- English only',
-      '- 3-4 sentences MAX (40-50 words TOTAL)',
+      '- 2-3 sentences MAX (20-30 words TOTAL)',
       '- First sentence: briefly mention the choice',
       '- Then: continue the story',
       '- Choices <= 10 words',
@@ -225,7 +226,7 @@ class StoryEngine {
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 2-3 sentences (40-50 words total) continuing the story.",',
+      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
       '  "choices": [',
       '    "A) [Risky path]",',
       '    "B) [Safe route]",',
@@ -235,7 +236,7 @@ class StoryEngine {
       '',
       'RULES:',
       '- English only',
-      '- 3-4 sentences MAX (40-50 words TOTAL)',
+      '- 2-3 sentences MAX (20-30 words TOTAL)',
       '- First sentence: briefly mention the choice',
       '- Then: continue the story',
       '- Choices <= 10 words',
@@ -263,7 +264,7 @@ class StoryEngine {
   }
 
   // Enforce word limit without awkward cut-offs
-  enforceWordLimit(story, maxWords = 50) {
+  enforceWordLimit(story, maxWords = STORY_WORD_LIMIT) {
     const words = story.trim().split(/\s+/);
     if (words.length <= maxWords) {
       return story;
@@ -325,7 +326,7 @@ class StoryEngine {
               { role: 'user', content: prompt }
             ],
             temperature: 0.7,
-            max_tokens: 1024
+            max_tokens: 256
           });
 
           const text = completion.choices[0]?.message?.content;
@@ -334,9 +335,9 @@ class StoryEngine {
           parsed = this.safeParseJSON(text);
           if (parsed && parsed.story && Array.isArray(parsed.choices)) {
             const wordCount = this.countWords(parsed.story);
-            if (wordCount > 50) {
-              parsed.story = this.enforceWordLimit(parsed.story, 50);
-              console.log(`✅ Generated ${theme} story via ${model} (truncated to 50 words)`);
+            if (wordCount > STORY_WORD_LIMIT) {
+              parsed.story = this.enforceWordLimit(parsed.story, STORY_WORD_LIMIT);
+              console.log(`✅ Generated ${theme} story via ${model} (truncated to ${STORY_WORD_LIMIT} words)`);
             } else {
               console.log(`✅ Generated ${theme} story via ${model} (${wordCount} words)`);
             }
@@ -366,6 +367,8 @@ class StoryEngine {
       if (previousStory && previousChoice) {
         finalStory = this.ensureChoiceLeadIn(finalStory, previousChoice);
       }
+
+      finalStory = this.enforceWordLimit(finalStory, STORY_WORD_LIMIT);
 
       return {
         story: finalStory,
