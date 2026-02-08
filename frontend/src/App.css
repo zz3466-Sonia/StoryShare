@@ -1,5 +1,5 @@
 /* App.css - Modern Premium Design */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka+One&family=Montserrat:wght@400;500;600;700;800&family=Actor&display=swap');
 
 body {
   margin: 0;
@@ -9,11 +9,22 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden;
-  overscroll-behavior: none;
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.particles-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
 }
 
 .app-container {
@@ -21,6 +32,19 @@ body {
   max-width: 420px;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+/* Fix: avoid cutting off the top of the card (title) on short viewports */
+@media (max-height: 760px) {
+  body {
+    align-items: flex-start;
+    padding-top: 28px;
+  }
+  .app-shell {
+    align-items: flex-start;
+  }
 }
 
 /* The White Card Container */
@@ -29,8 +53,8 @@ body {
   padding: 2.5rem 2rem;
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  height: 600px;
-  max-height: calc(100vh - 40px);
+  min-height: 520px;
+  max-height: 90vh;
   width: 500px;
   display: flex;
   flex-direction: column;
@@ -38,9 +62,12 @@ body {
   position: relative;
   border-top: 6px solid #87CEEB;
   overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+}
+
+/* Make sure the white card sits above particles */
+.screen-card {
+  z-index: 3;
 }
 
 .screen-card > * {
@@ -64,27 +91,28 @@ body {
 
 /* Typography */
 .logo {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.8rem;
+  font-family: 'Luckiest Guy', 'Fredoka One', cursive;
+  font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #87CEEB, #00838F);
+  background-color: #99D8FF;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 0.8rem;
-  letter-spacing: -1px;
+  letter-spacing: 2px;
 }
 
 .subtitle {
+  font-family: 'Actor', sans-serif;
   color: #666;
-  margin-bottom: 2.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 3rem;
+  font-size: 1rem;
   line-height: 1.6;
   font-weight: 500;
 }
 
 h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: #2c3e50;
@@ -93,8 +121,8 @@ h3 {
 
 /* Inputs */
 input {
-  background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
-  border: 2px solid #80DEEA;
+  background: rgb(236, 250, 255);
+  border: 2px solid #b1f6ff;
   padding: 14px 16px;
   border-radius: 12px;
   width: 100%;
@@ -123,25 +151,26 @@ input::placeholder {
 
 /* Buttons */
 .btn-primary {
-  background: linear-gradient(135deg, #87CEEB, #00838F);
+  background: #a5f8db;
   color: white;
-  border: none;
   padding: 13px 32px;
+  border: none;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Luckiest Guy', sans-serif;
+  -webkit-text-stroke: .1px black;
   cursor: pointer;
   margin: 12px 0;
   width: 100%;
   max-width: 320px;
-  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: transform 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+  transform: scale(1.05);
 }
 
 .btn-primary:disabled {
@@ -150,8 +179,8 @@ input::placeholder {
 }
 
 .btn-secondary {
-  background: linear-gradient(135deg, #B0E0E6, #80DEEA);
-  font-size: 0.95rem;
+  background: #91CDFF;
+  font-size: 1.5rem;
 }
 
 .btn-red {
