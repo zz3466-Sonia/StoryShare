@@ -116,28 +116,24 @@ class StoryEngine {
   buildSciFiPrompt(roundIndex, previousChoice, previousStory) {
     const storyContext = previousStory
       ? `PREVIOUS STORY:\n${previousStory}\n\nPLAYERS CHOSE: ${previousChoice || 'No choice provided'}\n\n⚠️ IMPORTANT: Start with ONE short sentence that mentions the choice above, then continue the story.`
-      : 'START: The signal appears on the silent space station. Introduce the three characters and the mysterious signal.';
-
+      : 'START: You are a Columbia student who fell asleep in Butler Library during finals. You wake up on a spaceship. An alien is holding your textbook.';
     return [
-      '=== INTERACTIVE SCI-FI STORY GENERATOR ===',
-      'THREE CHARACTERS:',
-      '- Astronaut (human explorer)',
-      '- AI (advanced intelligence)',
-      '- Alien (mysterious being)',
+      '=== COLUMBIA STUDENT IN SPACE ===',
+      'Protagonist: A stressed Columbia University student.',
+      'Setting: An alien spaceship. High stakes, but the student is also worried about missing class.',
       '',
       `ROUND: ${roundIndex + 1}`,
       storyContext,
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
+      '  "story": "Start with 1 short sentence about the choice. Then write 1-2 sentences (20-30 words) continuing the story. Keep it funny/stressful.",',
       '  "choices": [',
-      '    "A) [Astronaut action]",',
-      '    "B) [AI action]",',
-      '    "C) [Alien action]"',
+      '    "A) [Use Columbia Logic]",',
+      '    "B) [Panic/Fight]",',
+      '    "C) [Try to Negotiate]"',
       '  ]',
       '}',
-      '',
       'RULES:',
       '- English only',
       '- 2-3 sentences MAX (20-30 words TOTAL)',
@@ -183,25 +179,25 @@ class StoryEngine {
   buildMysteryPrompt(roundIndex, previousChoice, previousStory) {
     const storyContext = previousStory
       ? `PREVIOUS STORY:\n${previousStory}\n\nPLAYERS CHOSE: ${previousChoice || 'No choice provided'}\n\n⚠️ IMPORTANT: Start with ONE short sentence that mentions the choice above, then continue the story.`
-      : 'START: A detective makes a curious discovery in a coastal town. Introduce the mystery.';
+      : 'START: The famous Lion Statue has been stolen before the big game. You find a cryptic note left on the empty pedestal.';
 
     return [
-      '=== MYSTERY STORY ===',
-      'Detective, suspect, witness in a coastal town.',
+      '=== CAMPUS MYSTERY ===',
+      'Protagonist: A student journalist for the Columbia Spectator.',
+      'Setting: The campus at night. Noir atmosphere. Secret societies.',
       '',
       `ROUND: ${roundIndex + 1}`,
       storyContext,
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
+      '  "story": "Start with 1 short sentence about the choice. Then write 1-2 sentences (20-30 words) continuing the story.",',
       '  "choices": [',
-      '    "A) [Investigate deeper]",',
-      '    "B) [Trust intuition]",',
-      '    "C) [Uncover secret]"',
+      '    "A) [Interview Suspect]",',
+      '    "B) [Sneak into Office]",',
+      '    "C) [Follow the Clue]"',
       '  ]',
       '}',
-      '',
       'RULES:',
       '- English only',
       '- 2-3 sentences MAX (20-30 words TOTAL)',
@@ -215,25 +211,25 @@ class StoryEngine {
   buildAdventurePrompt(roundIndex, previousChoice, previousStory) {
     const storyContext = previousStory
       ? `PREVIOUS STORY:\n${previousStory}\n\nPLAYERS CHOSE: ${previousChoice || 'No choice provided'}\n\n⚠️ IMPORTANT: Start with ONE short sentence that mentions the choice above, then continue the story.`
-      : 'START: An explorer, companion, and guide face danger in an exotic world. Begin the adventure.';
+      : 'START: You are exploring the steam tunnels underneath Columbia University. You break through a brick wall and find an ancient, glowing temple.';
 
     return [
-      '=== ADVENTURE STORY ===',
-      'Explorer, companion, guide in a dangerous world.',
+      '=== COLUMBIA ADVENTURE ===',
+      'Protagonist: A brave (or foolish) Columbia student.',
+      'Setting: Ancient ruins hidden deep beneath New York City.',
       '',
       `ROUND: ${roundIndex + 1}`,
       storyContext,
       '',
       'OUTPUT FORMAT (JSON):',
       '{',
-      '  "story": "If continuing: Start with 1 SHORT sentence about what was chosen, then write 1-2 sentences (20-30 words total) continuing the story.",',
+      '  "story": "Start with 1 short sentence about the choice. Then write 1-2 sentences (20-30 words) continuing the story.",',
       '  "choices": [',
-      '    "A) [Risky path]",',
-      '    "B) [Safe route]",',
-      '    "C) [Follow instinct]"',
+      '    "A) [Take the Artifact]",',
+      '    "B) [Study the Runes]",',
+      '    "C) [Go Deeper]"',
       '  ]',
       '}',
-      '',
       'RULES:',
       '- English only',
       '- 2-3 sentences MAX (20-30 words TOTAL)',
