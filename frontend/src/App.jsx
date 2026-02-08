@@ -53,6 +53,7 @@ export default function App() {
     setImageUrl('');
     setImageLoading(false);
     setImageError('');
+    setStoryTheme('scifi');
   };
 
   const safeJson = async (res) => {
